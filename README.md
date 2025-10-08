@@ -2,6 +2,12 @@
 
 > **Production-Ready GitOps Demo** 🎪 Complete Kubernetes + ArgoCD workflow for AI agent platform deployment
 
+## 🎬 Watch the Demo
+
+**Deploy AI Agents with GitOps in Under 8 Minutes (Complete End-to-End Demo)**
+
+[![YouTube Demo](https://img.shields.io/badge/▶️_Watch_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/I1aQPWNkUU4)
+
 <div align="center">
 
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
