@@ -1,0 +1,27 @@
+# Local ArgoCD secrets (contains actual API keys and tokens)
+argocd/kagent-secret-local.yaml
+argocd/gitlab-repo-secret-temp.yaml
+argocd/kagent-secret-temp.yaml
+argocd/kagent-openai-secret-temp.yaml
+
+# Backup files
+*.bak
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Helm
+charts/*.tgz
+Chart.lock
+
+# Temporary files
+*.tmp
+*.loghelm-chart/values.yaml
+
+
+.env
