@@ -1,6 +1,0 @@
-apiVersion: v2
-name: mcp-sqlite-vec
-description: A minimal Helm chart for MCP SQLite Vector deployment
-type: application
-version: 0.1.0
-appVersion: "0.0.5"

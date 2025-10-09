@@ -163,9 +163,8 @@ deploy_applications() {
     kubectl apply -f "${ARGOCD_DIR}/kagent-project.yaml"
     sleep 2
 
-    kubectl apply -f "${ARGOCD_DIR}/kagent-crds-app.yaml"
+    kubectl apply -f "${ARGOCD_DIR}/kagent-simple-app.yaml"
     kubectl apply -f "${ARGOCD_DIR}/mcp-sqlite-vec-app.yaml"
-    kubectl apply -f "${ARGOCD_DIR}/kagent-app.yaml"
     
     log_success "ArgoCD applications deployed"
 }
@@ -176,7 +175,7 @@ configure_applications() {
     
     # Wait for all applications to be created
     log_info "Waiting for applications to be ready..."
-    local apps=("kagent-crds" "mcp-sqlite-vec" "kagent")
+    local apps=("kagent" "mcp-sqlite-vec")
     for app in "${apps[@]}"; do
         local retry_count=0
         while ! kubectl get application "$app" -n "$ARGOCD_NAMESPACE" &>/dev/null && [[ $retry_count -lt 60 ]]; do
@@ -415,7 +414,7 @@ teardown() {
     # Confirm teardown
     log_warning "This will completely remove ALL Kagent resources and namespaces."
     echo "   ✅ Kagent namespace and all resources"
-    echo "   ✅ ArgoCD applications (kagent, mcp-sqlite-vec, kagent-crds)"
+    echo "   ✅ ArgoCD applications (kagent, mcp-sqlite-vec)"
     echo "   ✅ Kagent ArgoCD project"
     echo "   ✅ All port-forwards"
     echo "   🔄 Container images will be kept for faster restart"
@@ -438,7 +437,7 @@ teardown() {
     
     log_info "🗑️  Removing ArgoCD applications..."
     # Remove applications with wait to ensure proper cleanup
-    local apps=("kagent" "mcp-sqlite-vec" "kagent-crds")
+    local apps=("kagent" "mcp-sqlite-vec")
     for app in "${apps[@]}"; do
         if kubectl get application "$app" -n "$ARGOCD_NAMESPACE" &>/dev/null; then
             log_info "  Removing application: $app"
