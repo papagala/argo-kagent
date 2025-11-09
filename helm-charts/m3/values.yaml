@@ -3,7 +3,7 @@ replicaCount: 1
 
 image:
   repository: oswaldodocker/m3-mimic-demo
-  tag: "0.0.3"
+  tag: "1.0.3"
   pullPolicy: IfNotPresent
   # Specify which stage to use: lite or bigquery
   stage: lite
