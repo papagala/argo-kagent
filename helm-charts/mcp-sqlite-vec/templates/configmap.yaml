@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configMaps.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: mcp-sqlite-vec
+data:
+  SQLITE_DB_DIR: {{ .Values.env.sqliteDbDir | quote }}
+  PORT: {{ .Values.env.port | quote }}
