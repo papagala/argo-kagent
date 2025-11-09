@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/papagala/argo-kagent.git  # Update this with your actual repo URL
     targetRevision: HEAD
-    path: helm-chart
+    path: helm-charts/mcp-sqlite-vec
     helm:
       valueFiles:
         - values.yaml
