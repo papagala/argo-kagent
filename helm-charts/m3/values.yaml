@@ -1,0 +1,57 @@
+# Default values for m3
+replicaCount: 1
+
+image:
+  repository: oswaldodocker/m3-mimic-demo
+  tag: "0.0.3"
+  pullPolicy: IfNotPresent
+  # Specify which stage to use: lite or bigquery
+  stage: lite
+
+service:
+  type: ClusterIP
+  port: 3000
+  targetPort: 3000
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 500m
+    memory: 512Mi
+
+# Environment variables
+env:
+  # M3 backend configuration
+  backend: sqlite
+  # Database path inside the container
+  dbPath: /root/m3_data/databases/mimic_iv_demo.db
+  # Python unbuffered mode
+  pythonUnbuffered: "1"
+
+# Secrets (for BigQuery and other sensitive data)
+secrets:
+  name: m3-secrets
+  # For BigQuery: set your GCP service account JSON key
+  # gcpServiceAccountKey: ""
+  # For other auth needs
+  # openaiApiKey: ""
+
+# ConfigMaps
+configMaps:
+  name: m3-config
+
+# Namespace (can be overridden with --namespace flag or --create-namespace)
+# This is just a default value, actual namespace is determined by Helm release
+namespace: kagent
+# Set to true if you want Helm to create the namespace (only if it doesn't exist)
+createNamespace: false
+
+# Persistent volume for database (optional)
+persistence:
+  enabled: false
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 5Gi
+  mountPath: /root/m3_data

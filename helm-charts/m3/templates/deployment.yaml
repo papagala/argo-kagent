@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "m3.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "m3.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "m3.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "m3.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: m3
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.targetPort }}
+              protocol: TCP
+          env:
+            - name: PYTHONUNBUFFERED
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMaps.name }}
+                  key: PYTHONUNBUFFERED
+            - name: M3_BACKEND
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMaps.name }}
+                  key: M3_BACKEND
+            - name: M3_DB_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMaps.name }}
+                  key: M3_DB_PATH
+          {{- if .Values.persistence.enabled }}
+          volumeMounts:
+            - name: m3-data
+              mountPath: {{ .Values.persistence.mountPath }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.persistence.enabled }}
+      volumes:
+        - name: m3-data
+          persistentVolumeClaim:
+            claimName: {{ include "m3.fullname" . }}-pvc
+      {{- end }}

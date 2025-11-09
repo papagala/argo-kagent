@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configMaps.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "m3.labels" . | nindent 4 }}
+data:
+  M3_BACKEND: {{ .Values.env.backend | quote }}
+  M3_DB_PATH: {{ .Values.env.dbPath | quote }}
+  PYTHONUNBUFFERED: {{ .Values.env.pythonUnbuffered | quote }}

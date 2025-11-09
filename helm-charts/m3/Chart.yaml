@@ -1,0 +1,6 @@
+apiVersion: v2
+name: m3
+description: A Helm chart for M3 (MIMIC-IV + MCP + Models) deployment
+type: application
+version: 0.0.3
+appVersion: "0.0.3"
