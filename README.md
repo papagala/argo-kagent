@@ -170,4 +170,6 @@ argocd app sync kagent --force
 
 *Perfect for learning, demos, and production deployments!* 🎪
 
+⚡ See here how hyperscalers use [kubernetes in production](https://bchess.github.io/k8s-1m/).
+
 </div>
